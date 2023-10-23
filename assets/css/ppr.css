@@ -1,0 +1,64 @@
+/* Styling for the reaction container */
+.fa-face-meh{
+    color: #ff6900;
+}
+.fa-face-smile{
+    color: #00d084;
+}
+.fa-face-sad-tear{
+    color: #0693e3;
+}
+.reaction-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 10px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)); /* White to transparent gradient */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle box shadow */
+    border-radius: 5px; /* Rounded corners for a softer look */
+}
+
+/* Styling for the left reaction icons */
+.left-reaction-icons {
+    display: flex;
+}
+
+/* Styling for the individual left reaction icons */
+.left-reaction-icons .reaction-icon {
+    margin: 0 10px;
+    font-size: 1.5em; /* Minimum font size of 1.5em */
+    transition: transform 0.3s;
+}
+
+/* Hover effect for the left reaction icons */
+.left-reaction-icons .reaction-icon:hover {
+    transform: scale(1.1); /* Make it 1,1x bigger on hover */
+    cursor: pointer;
+}
+
+/* Styling for the right reaction icons */
+.right-reaction-icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Styling for the individual right reaction icons and counts */
+.right-reaction-icons .reaction-icon {
+    display: flex;
+    align-items: center;
+    font-size: 1em; /* Minimum font size of 1em */
+    margin: 10px;
+}
+
+/* Styling for the reaction counts */
+.reaction-count {
+    font-size: 1em; /* Adjust as needed */
+    margin-left: 5px; /* Add some spacing between icon and count */
+}
+
+.icon-disabled{
+    opacity: 0.5; /* Reduce the opacity to make them appear faded */
+    pointer-events: none; /* Disable pointer events to make them unclickable */
+}
