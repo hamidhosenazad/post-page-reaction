@@ -26,9 +26,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once __DIR__ . '/includes/Installer.php';
-require_once __DIR__ . '/includes/Shortcode.php';
-require_once __DIR__ . '/includes/Assets.php';
+require_once __DIR__ . '/includes/PPR_Installer.php';
+require_once __DIR__ . '/includes/PPR_Shortcode.php';
+require_once __DIR__ . '/includes/PPR_Assets.php';
 
 final class Hamid_Post_Page_Reaction{
 
