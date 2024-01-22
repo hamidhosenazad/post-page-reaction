@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Assets handler class
  */
-class Assets {
+class PPR_Assets {
 
 	/**
 	 * Class constructor

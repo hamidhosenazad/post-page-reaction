@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Shortcode class
  */
-class ShortCode {
+class PPR_ShortCode {
     public function ppr_register_shortcode() {
         add_shortcode('post-page-reaction', array($this, 'ppr_render_shortcode_content'));
     }

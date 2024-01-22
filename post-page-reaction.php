@@ -47,10 +47,10 @@ final class Hamid_Post_Page_Reaction{
 	 * @return void
 	 */
 	public function ppr_define_constants() {
-		define( 'POST_PAGE_REACTION_FILE', __FILE__ );
-		define( 'POST_PAGE_REACTION_PATH', __DIR__ );
-		define( 'POST_PAGE_REACTION_URL', plugin_dir_url( __FILE__ ) );
-		define( 'POST_PAGE_REACTION_ASSETS', POST_PAGE_REACTION_URL . 'assets' );
+		define( 'PPR_FILE', __FILE__ );
+		define( 'PPR_PATH', __DIR__ );
+		define( 'PPR_URL', plugin_dir_url( __FILE__ ) );
+		define( 'PPR_ASSETS', PPR_URL . 'assets' );
 	}
 
     /**
@@ -74,7 +74,7 @@ final class Hamid_Post_Page_Reaction{
 	 * @return void
 	 */
 	public function ppr_init_plugin() {
-			$shortcode_init  = new Shortcode();
+			$shortcode_init  = new PPR_ShortCode();
             add_action('init', array($shortcode_init, 'ppr_register_shortcode'));
 			add_action('wp_ajax_ppr_save_reaction_data', array($shortcode_init, 'ppr_save_reaction_data'));
 			add_action('wp_ajax_nopriv_ppr_save_reaction_data', array($shortcode_init, 'ppr_save_reaction_data'));
@@ -83,7 +83,7 @@ final class Hamid_Post_Page_Reaction{
 			add_action('wp_ajax_nopriv_ppr_save_reaction_count_data', array($shortcode_init, 'ppr_save_reaction_count_data'));
 
 			
-			$assets_init = new Assets();
+			$assets_init = new PPR_Assets();
 
 	}
 
@@ -93,7 +93,7 @@ final class Hamid_Post_Page_Reaction{
 	 * @return void
 	 */
 	public function ppr_installer() {
-		$installer = new Installer();
+		$installer = new PPR_Installer();
         $installer->ppr_install();
 	}
 }

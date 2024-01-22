@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Installer class
  */
-class Installer {
+class PPR_Installer {
 
 	/**
 	 * Run the installer
