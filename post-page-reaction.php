@@ -2,7 +2,7 @@
 /**
  * Post Page Reaction 
  *
- * @package     hamid-post-page-reaction
+ * @package     post-page-reaction
  * @author      Hamid Azad
  * @copyright   2023 Hamid Azad
  * @license     GPL-2.0-or-later
@@ -14,7 +14,7 @@
  * Version:     1.0.0
  * Author:      Hamid Azad
  * Author URI:  https://github.com/hamidhosenazad
- * Text Domain: hamid-post-page-reaction
+ * Text Domain: post-page-reaction
  * License:     GPL v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
@@ -22,7 +22,7 @@
 /*
  * If this file is called directly, abort.
  */
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -30,14 +30,16 @@ require_once __DIR__ . '/includes/PPR_Installer.php';
 require_once __DIR__ . '/includes/PPR_Shortcode.php';
 require_once __DIR__ . '/includes/PPR_Assets.php';
 
-final class Hamid_Post_Page_Reaction{
+final class Hamid_Post_Page_Reaction
+{
 
-    /**
+	/**
 	 * Class construcotr
 	 */
-    private function __construct() {
+	private function __construct()
+	{
 		$this->ppr_installer();
-        $this->ppr_init_plugin();
+		$this->ppr_init_plugin();
 		$this->ppr_define_constants();
 	}
 
@@ -46,55 +48,59 @@ final class Hamid_Post_Page_Reaction{
 	 *
 	 * @return void
 	 */
-	public function ppr_define_constants() {
-		define( 'PPR_FILE', __FILE__ );
-		define( 'PPR_PATH', __DIR__ );
-		define( 'PPR_URL', plugin_dir_url( __FILE__ ) );
-		define( 'PPR_ASSETS', PPR_URL . 'assets' );
+	public function ppr_define_constants()
+	{
+		define('PPR_FILE', __FILE__);
+		define('PPR_PATH', __DIR__);
+		define('PPR_URL', plugin_dir_url(__FILE__));
+		define('PPR_ASSETS', PPR_URL . 'assets');
 	}
 
-    /**
+	/**
 	 * Initializes a singleton instance
 	 *
 	 * @return \Hamid_Post_Page_Reaction
 	 */
-	public static function ppr_init() {
+	public static function ppr_init()
+	{
 		static $instance = false;
 
-		if ( ! $instance ) {
+		if (!$instance) {
 			$instance = new self();
 		}
 
 		return $instance;
 	}
 
-    /**
+	/**
 	 * Initialize the plugin
 	 *
 	 * @return void
 	 */
-	public function ppr_init_plugin() {
-			$shortcode_init  = new PPR_ShortCode();
-            add_action('init', array($shortcode_init, 'ppr_register_shortcode'));
-			add_action('wp_ajax_ppr_save_reaction_data', array($shortcode_init, 'ppr_save_reaction_data'));
-			add_action('wp_ajax_nopriv_ppr_save_reaction_data', array($shortcode_init, 'ppr_save_reaction_data'));
+	public function ppr_init_plugin()
+	{
+		$shortcode_init = new PPR_ShortCode();
+		add_action('init', array($shortcode_init, 'ppr_register_shortcode'));
+		add_action('wp_ajax_ppr_save_reaction_data', array($shortcode_init, 'ppr_save_reaction_data'));
+		add_action('wp_ajax_nopriv_ppr_save_reaction_data', array($shortcode_init, 'ppr_save_reaction_data'));
 
-			add_action('wp_ajax_ppr_save_reaction_count_data', array($shortcode_init, 'ppr_save_reaction_count_data'));
-			add_action('wp_ajax_nopriv_ppr_save_reaction_count_data', array($shortcode_init, 'ppr_save_reaction_count_data'));
+		add_action('wp_ajax_ppr_save_reaction_count_data', array($shortcode_init, 'ppr_save_reaction_count_data'));
+		add_action('wp_ajax_nopriv_ppr_save_reaction_count_data', array($shortcode_init, 'ppr_save_reaction_count_data'));
 
-			
-			$assets_init = new PPR_Assets();
+
+		new PPR_Assets();
 
 	}
 
-    /**
+	/**
 	 * Do stuff upon plugin activation
 	 *
 	 * @return void
 	 */
-	public function ppr_installer() {
+	public function ppr_installer()
+	{
 		$installer = new PPR_Installer();
-        $installer->ppr_install();
+		$installer->ppr_install();
 	}
 }
 
@@ -103,7 +109,8 @@ final class Hamid_Post_Page_Reaction{
  *
  * @return \Hamid_Post_Page_Reaction
  */
-function Hamid_Post_Page_Reaction() {
+function Hamid_Post_Page_Reaction()
+{
 	return Hamid_Post_Page_Reaction::ppr_init();
 }
 

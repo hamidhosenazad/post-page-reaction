@@ -4,7 +4,7 @@
  * Core plugin file
  *
  * @since      1.0
- * @package    hamid-post-page-reaction
+ * @package    post-page-reaction
  * @author     Hamid Azad
  */
 

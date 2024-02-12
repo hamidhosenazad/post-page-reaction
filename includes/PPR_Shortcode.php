@@ -3,26 +3,29 @@
  * Core plugin file
  *
  * @since      1.0
- * @package    hamid-post-page-reaction
+ * @package    post-page-reaction
  * @author     Hamid Azad
  */
 
 /*
  * If this file is called directly, abort.
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 
 /**
  * Shortcode class
  */
-class PPR_ShortCode {
-    public function ppr_register_shortcode() {
+class PPR_ShortCode
+{
+    public function ppr_register_shortcode()
+    {
         add_shortcode('post-page-reaction', array($this, 'ppr_render_shortcode_content'));
     }
 
-    public function ppr_render_shortcode_content($atts, $content = null) {
+    public function ppr_render_shortcode_content($atts, $content = null)
+    {
         $user_id = get_current_user_id();
         $post_type = null;
         $post_or_page_id = null;
@@ -37,15 +40,28 @@ class PPR_ShortCode {
         $table_reactions = $wpdb->prefix . 'ppr_post_page_reactions';
 
         // Query to count total straight_face_count
-        $total_straight_face_count = $wpdb->get_var("SELECT SUM(straight_face_count) FROM $table_reactions WHERE post_type = '$post_type' AND post_or_page_id = $post_or_page_id");
-
+        $total_straight_face_count = $wpdb->get_var($wpdb->prepare(
+            "SELECT SUM(straight_face_count) FROM $table_reactions WHERE post_type = %s AND post_or_page_id = %d",
+            $post_type,
+            $post_or_page_id
+        )
+        );
 
         // Query to count total total_smiley_face_count
-        $total_smiley_face_count = $wpdb->get_var("SELECT SUM(smiley_face_count) FROM $table_reactions WHERE post_type = '$post_type' AND post_or_page_id = $post_or_page_id");
+        $total_smiley_face_count = $wpdb->get_var($wpdb->prepare(
+            "SELECT SUM(smiley_face_count) FROM $table_reactions WHERE post_type = %s AND post_or_page_id = %d",
+            $post_type,
+            $post_or_page_id
+        )
+        );
 
         // Query to count total sad_face_count
-        $total_sad_face_count = $wpdb->get_var("SELECT SUM(sad_face_count) FROM $table_reactions WHERE post_type = '$post_type' AND post_or_page_id = $post_or_page_id");
-
+        $total_sad_face_count = $wpdb->get_var($wpdb->prepare(
+            "SELECT SUM(sad_face_count) FROM $table_reactions WHERE post_type = %s AND post_or_page_id = %d",
+            $post_type,
+            $post_or_page_id
+        )
+        );
 
         $query = $wpdb->prepare(
             "SELECT id, straight_face_count, smiley_face_count, sad_face_count FROM $table_reactions WHERE user_id = %d AND post_type = %s AND post_or_page_id = %d",
@@ -119,7 +135,8 @@ class PPR_ShortCode {
         return '<div class="reaction-container">' . $left_icons . $right_icons . '</div>';
     }
 
-    public function ppr_save_reaction_data() {
+    public function ppr_save_reaction_data()
+    {
         global $wpdb;
         $table_reactions = $wpdb->prefix . 'ppr_post_page_reactions';
 
@@ -181,30 +198,44 @@ class PPR_ShortCode {
             wp_send_json($user_id);
         }
     }
-    public function ppr_save_reaction_count_data(){
+    public function ppr_save_reaction_count_data()
+    {
         // Make sure to sanitize the input values to prevent SQL injection
         $post_type = sanitize_text_field($_POST['post_type']);
-        $post_or_page_id = intval($_POST['post_or_page_id']); 
-    
+        $post_or_page_id = intval($_POST['post_or_page_id']);
+
         global $wpdb;
         $table_reactions = $wpdb->prefix . 'ppr_post_page_reactions';
-    
-        $total_straight_face_count = $wpdb->get_var("SELECT SUM(straight_face_count) FROM $table_reactions WHERE post_type = '$post_type' AND post_or_page_id = $post_or_page_id");
-        $total_smiley_face_count = $wpdb->get_var("SELECT SUM(smiley_face_count) FROM $table_reactions WHERE post_type = '$post_type' AND post_or_page_id = $post_or_page_id");
-        $total_sad_face_count = $wpdb->get_var("SELECT SUM(sad_face_count) FROM $table_reactions WHERE post_type = '$post_type' AND post_or_page_id = $post_or_page_id");
-    
+
+        $total_straight_face_count = $wpdb->get_var($wpdb->prepare(
+            "SELECT SUM(straight_face_count) FROM $table_reactions WHERE post_type = %s AND post_or_page_id = %d",
+            $post_type,
+            $post_or_page_id
+        )
+        );
+        $total_smiley_face_count = $wpdb->get_var($wpdb->prepare(
+            "SELECT SUM(smiley_face_count) FROM $table_reactions WHERE post_type = %s AND post_or_page_id = %d",
+            $post_type,
+            $post_or_page_id
+        )
+        );
+        $total_sad_face_count = $wpdb->get_var($wpdb->prepare(
+            "SELECT SUM(sad_face_count) FROM $table_reactions WHERE post_type = %s AND post_or_page_id = %d",
+            $post_type,
+            $post_or_page_id
+        )
+        );
+
         if (!$total_straight_face_count && !$total_smiley_face_count && !$total_sad_face_count) {
             wp_send_json(array('error' => 'No data found for the given criteria'));
         } else {
-            wp_send_json(array(
-                'total_straight_face_count' => $total_straight_face_count,
-                'total_smiley_face_count' => $total_smiley_face_count,
-                'total_sad_face_count' => $total_sad_face_count
-            ));
+            wp_send_json(
+                array(
+                    'total_straight_face_count' => $total_straight_face_count,
+                    'total_smiley_face_count' => $total_smiley_face_count,
+                    'total_sad_face_count' => $total_sad_face_count
+                )
+            );
         }
     }
-    
 }
-
-
-
