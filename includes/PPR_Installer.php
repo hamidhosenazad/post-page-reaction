@@ -47,20 +47,20 @@ class PPR_Installer
 		$charset_collate = $wpdb->get_charset_collate();
 
 		// SQL queries for table creation
-		$schema = $wpdb->prepare(
-			"CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}ppr_post_page_reactions` (
-			`id` int(11) NOT NULL AUTO_INCREMENT,
-			`user_id` int(11) NOT NULL,
-			`post_type` varchar(100) NOT NULL,
-			`post_or_page_id` int(11) NOT NULL,
-			`straight_face_count` int(11) NOT NULL,
-			`smiley_face_count` int(11) NOT NULL,
-			`sad_face_count` int(11) NOT NULL,
-			`created_at` datetime NOT NULL,
-			PRIMARY KEY (`id`)
-		) %s",
-			$charset_collate
-		);
+		$schema = "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}ppr_post_page_reactions` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `user_id` int(11) NOT NULL,
+            `post_type` varchar(100) NOT NULL,
+            `post_or_page_id` int(11) NOT NULL,
+            `straight_face_count` int(11) NOT NULL,
+            `smiley_face_count` int(11) NOT NULL,
+            `sad_face_count` int(11) NOT NULL,
+            `created_at` datetime NOT NULL,
+            PRIMARY KEY (`id`)
+        ) $charset_collate";
+
+		// Add the CHARSET and COLLATE to the end of the query
+		$schema .= " DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci";
 
 		// dbDelta to create or update tables
 		dbDelta($schema);
