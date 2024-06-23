@@ -22,7 +22,7 @@ AJAX Support: Utilizes AJAX for seamless and dynamic reaction saving and countin
 
 Upload the plugin folder to the /wp-content/plugins/ directory.
 Activate the plugin through the 'Plugins' menu in WordPress.
-Customize the display settings and include the shortcode [ppr_reaction] in your posts or pages to enable reactions.
+Customize the display settings and include the shortcode [ppr-reaction] in your posts or pages to enable reactions.
 
 == Frequently Asked Questions ==
 

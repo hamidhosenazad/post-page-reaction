@@ -21,7 +21,7 @@ class PPR_ShortCode
 {
     public function ppr_register_shortcode()
     {
-        add_shortcode('post-page-reaction', array($this, 'ppr_render_shortcode_content'));
+        add_shortcode('ppr-reaction', array($this, 'ppr_render_shortcode_content'));
     }
 
     public function ppr_render_shortcode_content($atts, $content = null)
