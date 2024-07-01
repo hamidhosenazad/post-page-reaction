@@ -41,7 +41,8 @@ jQuery(document).ready(function($) {
                 clicked_reaction_id: clicked_reaction_id,
                 user_id: user_id,
                 post_type: post_type,
-                post_or_page_id: post_or_page_id
+                post_or_page_id: post_or_page_id,
+                nonce: pprAjax.nonce
             },
             success: function(response) {
                 console.log(response);
@@ -51,7 +52,8 @@ jQuery(document).ready(function($) {
                     data: {
                         action: 'ppr_save_reaction_count_data', // Define your second action
                         post_type: post_type,
-                        post_or_page_id: post_or_page_id
+                        post_or_page_id: post_or_page_id,
+                        nonce: pprAjax.nonce
                     },
                     success: function(secondResponse) {
                         // Access the 'total_straight_face_count' value from secondResponse

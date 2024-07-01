@@ -137,9 +137,12 @@ class PPR_ShortCode
 
     public function ppr_save_reaction_data()
     {
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'ppr-nonce-hamid' ) ) {
+            die ( 'Busted!');
+        }
         global $wpdb;
         $table_reactions = $wpdb->prefix . 'ppr_post_page_reactions';
-
+        
         $user_id = intval($_POST['user_id']);
         $post_type = sanitize_text_field($_POST['post_type']);
         $post_or_page_id = intval($_POST['post_or_page_id']);
@@ -200,6 +203,11 @@ class PPR_ShortCode
     }
     public function ppr_save_reaction_count_data()
     {
+        // Make sure to sanitize the input values to prevent SQL injection
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'ppr-nonce-hamid' ) ) {
+            die ( 'Busted!');
+        }
+        
         // Make sure to sanitize the input values to prevent SQL injection
         $post_type = sanitize_text_field($_POST['post_type']);
         $post_or_page_id = intval($_POST['post_or_page_id']);

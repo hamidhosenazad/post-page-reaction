@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Core plugin file
  *
@@ -82,7 +83,10 @@ class PPR_Assets
 			$deps = isset($script['deps']) ? $script['deps'] : false;
 			wp_register_script($handle, $script['src'], $deps, $script['version'], true);
 			wp_enqueue_script($handle);
-			wp_localize_script($handle, 'pprAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
+			wp_localize_script($handle, 'pprAjax', array(
+				'ajaxurl' => admin_url('admin-ajax.php'),
+				'nonce' => wp_create_nonce('ppr-nonce-hamid')
+			));
 		}
 
 		foreach ($styles as $handle => $style) {
@@ -91,5 +95,4 @@ class PPR_Assets
 			wp_enqueue_style($handle);
 		}
 	}
-
 }
